@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: lovematch-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: lovematch
+
+  template:
+    metadata:
+      labels:
+        app: lovematch
+
+    spec:
+      containers:
+        - name: lovematch
+          image: lovematch:latest
+
+          ports:
+            - containerPort: 5000
+
+          envFrom:
+            - configMapRef:
+                name: lovematch-config
